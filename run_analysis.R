@@ -9,10 +9,10 @@ run_analysis <- function() {
   y_train <- read.table("./data/UCI HAR Dataset/train/y_train.txt")
   subject_train <- read.table("./data/UCI HAR Dataset/train/subject_train.txt")
   y_train[y_train == 1] = "WALKING"
-  y_train[y_train == 2] = "WALKING_UPSTAIRS"
-  y_train[y_train == 3] = "WALKING_DOWNSTAIRS"
+  y_train[y_train == 2] = "WALKING_UPSTAIRS "
+  y_train[y_train == 3] = "WALKING_DOWNSTAIRS "
   y_train[y_train == 4] = "SITTING"
-  y_train[y_train == 5] = "STANDING"
+  y_train[y_train == 5] = "STANDING "
   y_train[y_train == 6] = "LAYING"
   train <- NULL
   train$subject <- subject_train$V1
@@ -39,9 +39,8 @@ run_analysis <- function() {
   test<-as.data.frame(test)
   
   #merge test and train
-  all <- train  
-  all <- rbind(all, test)
-  
+  all<-merge(train,test,all=TRUE)
+
   all_mean<-aggregate(all[3:ncol(all)], all[1:2], mean)
   
   write.table(all, "all.txt", sep="\t") 
